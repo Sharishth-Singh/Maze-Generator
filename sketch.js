@@ -2,6 +2,8 @@ var cols,rows;
 var w = 10;
 var grid = [];
 var current;
+var stack = [];
+
 
 function setup(){
     createCanvas(400,400);
@@ -28,11 +30,18 @@ function draw(){
     var next = current.checkNeighbors();
     if(next){
         next.visited = true;
+        // Step 2
+        stack.push(current);
         // Step 3
         removeWalls(current,next);
 
         // Step 4
         current = next;
+    }
+    else{
+        if(stack.length > 0){
+            current = stack.pop();
+        }
     }
 }
 
